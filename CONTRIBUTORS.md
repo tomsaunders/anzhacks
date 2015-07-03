@@ -3,7 +3,7 @@
 * Cat Gomer
 * Chris Mitchell
 * Dr Allison Sonneveld
-* Elizabeth McNulty
+* Elizabeth McAnulty
 * Kylie Johnson
 * Lucas Crimmins
 * Nick Sonneveld

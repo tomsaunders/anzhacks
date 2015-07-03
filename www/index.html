@@ -11,12 +11,12 @@
                 * Enable inline JS: add 'unsafe-inline' to default-src
         -->
         <meta http-equiv="Content-Security-Policy"
-			  content="default-src 'self' http: https: data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+			  content="default-src 'self' http: https: data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' https: http: 'unsafe-inline'; media-src *">
         <meta name="format-detection" content="telephone=no">
         <meta name="msapplication-tap-highlight" content="no">
         <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
-        <link rel="stylesheet" type="text/css" href="css/index.css">
         <title>ANZHACKS</title>
+		<!-- jQuery -->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
 		<!-- Bootstrap -->
@@ -24,16 +24,18 @@
 		<link rel="stylesheet" href="https://bootswatch.com/superhero/bootstrap.min.css">
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-
+		<!-- Our stuff -->
+		<link rel="stylesheet" href="css/index.css" />
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
 		<script type="text/javascript" src="js/facebook.js"></script>
     </head>
     <body>
-        <div class="app">
-            <h1>ANZhACkS</h1>
-            <div>stuff</div>
-			<div id="status">
+        <div class="container">
+			<div class="jumbotron">
+				<h1>ANZhACks</h1>
+				<p class="lead">Historical empathy via social media networks</p>
+				<p><a class="btn btn-lg btn-success" href="#" role="button" id="fbLogin">Log in with Facebook</a></p>
 			</div>
         </div>
     </body>

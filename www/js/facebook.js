@@ -1,7 +1,12 @@
 //https://developers.facebook.com/docs/facebook-login/login-flow-for-web/v2.3
 //https://developers.facebook.com/docs/javascript/quickstart/v2.3
+//https://developers.facebook.com/docs/facebook-login/permissions/v2.3#reference-extended-profile
 
 var fbController = {
+
+	requiredScope: 'public_profile, user_friends, user_birthday, user_hometown, user_location, user_relationships, read_custom_friendlists',
+	friends: [],
+
 	init: function(){
 		console.log('fb controller init');
 		$.ajaxSetup({ cache: true });
@@ -10,18 +15,66 @@ var fbController = {
 				appId: '1601909030080264',
 				version: 'v2.3'
 			});
-			$('#loginbutton,#feedbutton').removeAttr('disabled');
 
-			FB.getLoginStatus(function(response) {
-				if (response.status === 'connected') {
-					console.log('Logged in.');
-				}
-				else {
-					FB.login();
-				}
-			});
+
+//			FB.login($.proxy(fbController.gotLogin, fbController), {scope: fbController.requiredScope, return_scopes: true});
+			FB.getLoginStatus($.proxy(fbController.gotLogin, fbController));
 		});
 	},
+
+	gotLogin: function(login){
+		var $loginBtn = $('#fbLogin');
+		if (login.status === 'connected') {
+			console.log('Logged in.', login);
+			$('.jumbotron').append('<div class="alert alert-success" role="alert">You have logged in with Facebook</div>');
+			fbController.saveAuth(login.authResponse);
+			fbController.getUser();
+		} else {
+			$loginBtn.show().click(function(){
+				FB.login($.proxy(fbController.gotLogin, fbController), {scope: fbController.requiredScope, return_scopes: true});
+			})
+		}
+	},
+
+	//maybe unnecessary. the FB library handles all this
+	saveAuth: function(authResponse){
+		this.accessToken = authResponse.accessToken;
+		this.userID = authResponse.userID;
+	},
+
+	getUser: function(){
+		FB.api('/me', function(me){
+			console.log('/me response', me);
+			$('.jumbotron').append('<div class="alert alert-success" role="alert">Hello, ' + me.name + '</div>');
+			$('.jumbotron').append('<div id="friends" class="alert alert-info" role="alert">Loading friends...</div>');
+			fbController.getFriends();
+		});
+	},
+
+	getFriends: function(url){
+		url = url || '/' + this.userID + '/taggable_friends';
+
+		console.log('get friends', url);
+		FB.api(url, $.proxy(this.gotFriends, this));
+	},
+
+	gotFriends: function(friends){
+		if (friends.data.length){
+			this.addFriends(friends.data);
+		}
+		if (friends.paging && friends.paging.next){
+			this.getFriends(friends.paging.next);
+		}
+	},
+
+	addFriends: function(friends){
+		for (var f = 0; f < friends.length; f++){
+			this.friends.push(friends[f].name);
+		}
+		$('#friends').text(this.friends.join(', '));
+	},
+
+
 
 	// This is called with the results from from FB.getLoginStatus().
 	statusChangeCallback: function(response) {

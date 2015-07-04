@@ -11,6 +11,7 @@ var formRenderer = {
 
 		ans1Name: "Nicholas Smith",
 
+		//  only one of these need be set.
 		ans2Parish : "PTown",
 		ans2Town : "TTown",
 		ans2County : "CTown",

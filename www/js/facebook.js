@@ -47,6 +47,13 @@ var fbController = {
 		});
 	},
 
+	getProfilePic: function() {
+		FB.api('/me/picture?width=200&height=200', function(me) {
+			console.log('/me/picture response', me.data.url);
+			app.gotProfilePic(me.data.url);
+        });
+	},
+
 	getFriends: function(url){
 		url = url || '/' + this.userID + '/taggable_friends';
 

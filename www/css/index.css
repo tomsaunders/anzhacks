@@ -1,6 +1,18 @@
 .jumbotron {
 	text-align: center;
 }
+
 #fbLogin {
 	display: none;
 }
+
+img.sepia {
+    filter: url( sepia.svg#old-timey );
+    -webkit-filter: sepia( 1 );
+    -webkit-filter: sepia( 100% );
+    filter: sepia( 100% );
+    background-color: #5E2612;
+    filter: alpha( opacity = 50 );
+    zoom:1;
+}
+

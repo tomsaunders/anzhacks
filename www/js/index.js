@@ -9,6 +9,7 @@ var app = {
 	loggedIn: function(){
 		$('.jumbotron').append('<div class="alert alert-success" role="alert">You have logged in with Facebook</div>');
 		fbController.getUser();
+		fbController.getProfilePic();
 	},
 	gotUser: function(user){
 		this.user = user;
@@ -17,6 +18,9 @@ var app = {
 		fbController.getFriends();
 		naa.getAnzacs(this.user.last_name, this.user.first_name);
 		awm.getWarPeeps(this.user.last_name, this.user.first_name).then(app.gotWarPeeps);
+	},
+	gotProfilePic: function(url) {
+		$('.jumbotron').append('<div id="profile"><img class="sepia" src="' + url + '""></div>');
 	},
 	gotFriends: function(friends){
 		$('#friends').text(friends.length + ' friends loaded');

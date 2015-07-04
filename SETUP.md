@@ -24,6 +24,8 @@ to get this working, I had to:
         DocumentRoot "/Users/<YOURUSERNAME>/<ANZHACKS>/www"
         ServerName anzhacks.com
         <Directory /Users/<YOURUSERNAME>/<ANZHACKS>/www >
+            AllowOverride All
+	    Require local
             Order allow,deny
             Allow from all
         </Directory>

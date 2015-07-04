@@ -4,7 +4,7 @@ var awm = {
 
 	search: function(q, start, count, type) {
 
-		var param = $.param({key: "ww1hack2015", start: start || 1, count: count || 100, q: q||"*", labels:true, format:"json"});
+		var param = $.param({key: "ww1hack2015", start: start || 1, count: count || 1000, q: q||"*", labels:true, format:"json"});
 		if (type) {
 			param.type = type;
 		}
@@ -54,5 +54,25 @@ var awm = {
 			console.log('Fetch Error bro: ', err);
 		});
 	},
+
+	oldTimey: function(name){
+		switch (name){
+			case 'Tom': name = 'Thomas'; break;
+			case "Nick": name = "Nicholas"; break;
+		}
+		return name;
+	},
+
+	getWarPeeps: function(lastName, firstName){
+		firstName = this.oldTimey(firstName);
+		return awm.searchPeople(firstName).then(function(result) {
+			return {
+				peeps: result.results,
+				totalCount : result.results.length,
+				name : firstName,
+			}
+		});
+	},
+
 
 }

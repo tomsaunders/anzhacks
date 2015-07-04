@@ -16,6 +16,7 @@ var app = {
 		$('.jumbotron').append('<div id="friends" class="alert alert-info" role="alert">Loading friends...</div>');
 		fbController.getFriends();
 		naa.getAnzacs(this.user.last_name, this.user.first_name);
+		awm.getWarPeeps(this.user.last_name, this.user.first_name).then(app.gotWarPeeps);
 	},
 	gotFriends: function(friends){
 		$('#friends').text(friends.length + ' friends loaded');
@@ -23,5 +24,10 @@ var app = {
 	gotAnzacs: function(anzacs, totalCount, name){
 		$('.jumbotron').append('<div id="anzacs" class="alert alert-warning" role="alert">Loading friends...</div>');
 		$('#anzacs').text(anzacs.length + ' anzacs found matching ' + name);
+	},
+	gotWarPeeps: function(result) {
+		$('.jumbotron').append('<div id="warpeeps" class="alert alert-warning" role="alert">Loading friends...</div>');
+		$('#warpeeps').text(result.peeps.length + ' war peeps found matching ' + result.name);
 	}
+
 }

@@ -1,3 +1,5 @@
+"use strict";
+
 var formRenderer = {
 
 	exampleData: {
@@ -6,7 +8,6 @@ var formRenderer = {
 		christianName: "Nicholas",
 		unit: "XYZ123",
 		joinedOn: "Oct 1915",
-
 
 		ans1Name: "Nicholas Smith",
 
@@ -42,9 +43,12 @@ var formRenderer = {
 
 		ans13Innoc: "yes, no",
 
-		dateSigned : "1 / 1/ 1900",
+		//  if both are undefined/null, then draw big fat line through it all.
+		allot: "three-fifths", //  or two-fifths
+		support: "wife-children", //  or wife
 
-		signature : "XXX",
+		dateSigned : "1 / 1/ 1900",
+		signature : "XXX",  // not used
 	},
 
 	loadFont: function (familes) {
@@ -59,7 +63,7 @@ var formRenderer = {
 
 	loadImg: function (url) {
 		return new Promise(function (resolve, reject) {
-			img = new Image();
+			var img = new Image();
 			img.onload = function() { resolve(img); };
 			img.onerror = function() { reject("error loading: " + url); }
 			img.src = url;
@@ -72,17 +76,36 @@ var formRenderer = {
 	},
 
 	renderForm: function(formData) {
-		var imageLoaded = formRenderer.loadImg("img/form-bg.png");
-		var fontLoaded = formRenderer.loadFont(["Homemade Apple"])
+		var fontLoaded = formRenderer.loadFont(["Homemade Apple"]);
 
-		return Promise.all([imageLoaded, fontLoaded])
+		var imgsNeeded = [
+			"form-bg.png",
+			"form-line-bottom-para.png",
+			"form-line-two-fifths.png",
+			"form-line-three-fifths.png",
+			"form-line-wife.png",
+			"form-line-wife-and-children.png",
+			"form-signature.png",
+		];
+		var imgPromises = _.map(imgsNeeded, function(imgFilename) {
+			return formRenderer.loadImg("img/"+imgFilename);
+		});
+
+		var allPromises = [fontLoaded].concat(imgPromises);
+		return Promise.all(allPromises)
 		.then(function(values) {
-			var formBgImage = values[0];
+			var formBgImg = values[1];
+			var lineBottomParaImg = values[2];
+			var lineTwoFifthsImg = values[3];
+			var lineThreeFifthsImg = values[4];
+			var lineWifeImg = values[5];
+			var lineWifeAndChildrenImg = values[6];
+			var signatureImg = values[7];
 
 			var canvas = document.getElementById('render-output');
 			var context = canvas.getContext('2d');
 
-			context.drawImage(formBgImage, 0, 0);
+			context.drawImage(formBgImg, 0, 0);
 
 			formRenderer.puts(context, formData.no, 92, 299);
 			formRenderer.puts(context, formData.surname, 430, 292);
@@ -114,8 +137,25 @@ var formRenderer = {
 
 			formRenderer.puts(context, formData.ans1Name,124.5,1374.5);
 
+			if (formData.allot === "two-fifths") {
+				context.drawImage(lineTwoFifthsImg, 421.5,1428.5);
+			} else if (formData.allot === "three-fifths") {
+				context.drawImage(lineThreeFifthsImg, 422.5,1444.5);
+			}
+			if (formData.support === "wife") {
+				context.drawImage(lineWifeImg, 216.5,1459.5);
+			} else if (formData.support === "wife-children") {
+				context.drawImage(lineWifeAndChildrenImg, 217.5,1477.5);
+			}
+
+			//  if not data supplied, cross out.
+			if (!formData.allot && !formData.support) {
+				context.drawImage(lineBottomParaImg, 68.5,1423.5);
+			}
+
 			formRenderer.puts(context, formData.dateSigned, 148.5,1507.5);
-			formRenderer.puts(context, formData.signature, 615.5,1501.5);
+			// formRenderer.puts(context, formData.signature, 615.5,1501.5);
+			context.drawImage(signatureImg, 639.5,1443.5);
 
 			return values;
 		});
@@ -124,13 +164,21 @@ var formRenderer = {
 	example: function() {
 		//  do something sweet.
 		formRenderer.renderForm(formRenderer.exampleData).then(function(values) {
-			var formBgImage = values[0];
+			var formBgImg = values[1];
 
 			var canvas = document.getElementById('render-output');
 			var context = canvas.getContext('2d');
 
 			//  For debugging, print text and position.
 			$('#render-output').click(function (e) { //Offset mouse Position
+				var formBgImg = values[1];
+				var lineBottomParaImg = values[2];
+				var lineTwoFifthsImg = values[3];
+				var lineThreeFifthsImg = values[4];
+				var lineWifeImg = values[5];
+				var lineWifeAndChildrenImg = values[6];
+				var signatureImg = values[7];
+
 				var posX = $(this).offset().left,
 					posY = $(this).offset().top;
 
@@ -139,17 +187,17 @@ var formRenderer = {
 				// alert((e.pageX - posX) + ' , ' + (e.pageY - posY));
 
 				//  clear
-				context.drawImage(formBgImage, 0, 0);
+				context.drawImage(formBgImg, 0, 0);
 
 				context.font = "10pt 'Helvetica'";
 				context.fillText('pos:'+relPosX+","+relPosY, 10, 30);
 				$("#pos").text(relPosX+","+relPosY);
 
 				formRenderer.puts (context, "The quick brown fox jumped over the lazy dogs.", relPosX, relPosY);
+				// context.drawImage(signatureImg, relPosX, relPosY);
+
 			});
 		});
 
-
 	},
-
 };

@@ -22,6 +22,6 @@ var app = {
 	},
 	gotAnzacs: function(anzacs, totalCount, name){
 		$('.jumbotron').append('<div id="anzacs" class="alert alert-warning" role="alert">Loading friends...</div>');
-		$('#anzacs').text(anzacs.length + ' anzacs found matching ' + name);
+		$('#anzacs').text(anzacs.length + ' ANZACs found matching ' + name);
 	}
 }

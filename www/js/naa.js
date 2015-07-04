@@ -20,6 +20,7 @@ var naa = {
 	oldTimey: function(name){
 		switch (name){
 			case 'Tom': name = 'Thomas'; break;
+			case "Nick": name = "Nicholas"; break;
 		}
 		return name;
 	},

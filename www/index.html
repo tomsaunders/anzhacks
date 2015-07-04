@@ -30,6 +30,7 @@
 		<link rel="stylesheet" href="css/index.css" />
 		<script type="text/javascript" src="cordova.js"></script>
 		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="js/quiz.js"></script>
 		<script type="text/javascript" src="js/facebook.js"></script>
 		<script type="text/javascript" src="js/naa.js"></script>
 		<script type="text/javascript" src="js/awm.js"></script>
@@ -40,6 +41,210 @@
 				<h1>ANZhACks</h1>
 				<p class="lead">Historical empathy via social media networks</p>
 				<p><a class="btn btn-lg btn-success" href="#" role="button" id="fbLogin">Log in with Facebook</a></p>
+			</div>
+			<div class="well" id="quiz" display="display: none;">
+				<nav class="numbers">
+					<ul class="pagination pagination-sm">
+						<li><a href="#">1</a></li>
+						<li><a href="#">2</a></li>
+						<li><a href="#">3</a></li>
+						<li><a href="#">4</a></li>
+						<li><a href="#">5</a></li>
+						<li><a href="#">6</a></li>
+						<li><a href="#">7</a></li>
+						<li><a href="#">8</a></li>
+						<li><a href="#">9</a></li>
+						<li><a href="#">10</a></li>
+						<li><a href="#">11</a></li>
+						<li><a href="#">12</a></li>
+						<li><a href="#">13</a></li>
+						<li><a href="#">14</a></li>
+					</ul>
+				</nav>
+				<div class="question" id="question-0"></div>
+				<div class="question" id="question-1">
+					<span class="question-label">Question 1</span>
+					<form>
+						<div class="form-group">
+							<label>What is your Name?</label>
+							<input type="text" id="ans1Name" class="form-control">
+						</div>
+						<div class="alert alert-info" role="alert">Data prefilled from Facebook</div>
+					</form>
+				</div>
+				<div class="question" id="question-2">
+					<span class="question-label">Question 2</span>
+					<form>
+						<div class="form-group">
+							<label>In or near what Parish or Town were you born?</label>
+							<input type="text" id="ans2" class="form-control">
+						</div>
+						<div class="alert alert-info fb-prefill" role="alert">Data prefilled from Facebook (User's hometown)</div>
+					</form>
+				</div>
+				<div class="question" id="question-3">
+					<span class="question-label">Question 3</span>
+					<form>
+						<div class="form-group">
+							<label>Are you a natural born British Subject or a Naturalized British Subject?</label>
+							<div class="radio"><label>
+								<input type="radio" name="ans3BritishSubject" id="ans3Radio1" value="Natural Born">
+								Natural Born
+							</label></div>
+							<div class="radio"><label>
+								<input type="radio" name="ans3BritishSubject" id="ans3Radio2" value="Naturalized">
+								Naturalized
+							</label></div>
+						</div>
+						<div class="alert alert-info fb-prefill" role="alert">Data prefilled from Facebook (Whether user's home country was in the British Commonwealth)</div>
+					</form>
+				</div>
+				<div class="question" id="question-4">
+					<span class="question-label">Question 4</span>
+					<form>
+						<div class="form-group">
+							<label>What is your Age?</label>
+							<input type="text" id="ans4age" class="form-control">
+						</div>
+						<div class="alert alert-info fb-prefill" role="alert">Data prefilled from Facebook (User's birthday)</div>
+					</form>
+				</div>
+				<div class="question" id="question-5">
+					<span class="question-label">Question 5</span>
+					<form>
+						<div class="form-group">
+							<label>What is your Trade or Calling?</label>
+							<input type="text" id="ans5Trade" class="form-control">
+						</div>
+					</form>
+				</div>
+				<div class="question" id="question-6">
+					<span class="question-label">Question 6</span>
+					<form>
+						<div class="form-group">
+							<label>Are you, or have you been, an Apprentice?</label>
+							<input type="text" id="ans6Apprentice" class="form-control">
+							<button type="button" class="btn btn-info" data-input="ans6Apprentice">Yes</button>
+							<button type="button" class="btn btn-info" data-input="ans6Apprentice">No</button>
+						</div>
+					</form>
+				</div>
+				<div class="question" id="question-7">
+					<span class="question-label">Question 7</span>
+					<form>
+						<div class="form-group">
+							<label>Are you married?</label>
+							<input type="text" id="ans7Marriage" class="form-control">
+						</div>
+						<div class="alert alert-info fb-prefill" role="alert">Data prefilled from Facebook (User's relationship status)</div>
+					</form>
+				</div>
+				<div class="question" id="question-8">
+					<span class="question-label">Question 8</span>
+					<form>
+						<div class="form-group">
+							<label>Who is your next of kin?</label>
+							<input type="text" id="ans8NextKin1" class="form-control">
+						</div>
+						<div class="alert alert-info fb-prefill" role="alert">Data prefilled from Facebook (User's related friends)</div>
+					</form>
+				</div>
+				<div class="question" id="question-9">
+					<span class="question-label">Question 9</span>
+					<form>
+						<div class="form-group">
+							<label>What is your permanent address in Australia?</label>
+							<input type="text" id="ans9addr1" class="form-control">
+						</div>
+						<div class="alert alert-info fb-prefill" role="alert">Data prefilled from Facebook (User's location)</div>
+					</form>
+				</div>
+				<div class="question" id="question-10">
+					<span class="question-label">Question 10</span>
+					<form>
+						<div class="form-group">
+							<label>Do you now belong to, or have you ever served in:</label>
+							<div class="checkbox"><label>
+								<input type="checkbox" id="ans10army" data-input="ans10PreviousOwner" value="His Majesty's Army">
+								His Majesty's Army
+							</label></div>
+							<div class="checkbox"><label>
+								<input type="checkbox" id="ans10marines" data-input="ans10PreviousOwner" value="Marines">
+								the Marines
+							</label></div>
+							<div class="checkbox"><label>
+								<input type="checkbox" id="ans10militia" data-input="ans10PreviousOwner" value="Militia">
+								the Militia
+							</label></div>
+							<div class="checkbox"><label>
+								<input type="checkbox" id="ans10reserve" data-input="ans10PreviousOwner" value="Militia Reserve">
+								the Militia Reserve
+							</label></div>
+							<div class="checkbox"><label>
+								<input type="checkbox" id="ans10force" data-input="ans10PreviousOwner" value="Territorial Force">
+								the Territorial Force
+							</label></div>
+							<div class="checkbox"><label>
+								<input type="checkbox" id="ans10navy" data-input="ans10PreviousOwner" value="Royal Navy">
+								Royal Navy
+							</label></div>
+							<div class="checkbox"><label>
+								<input type="checkbox" id="ans10colonial" data-input="ans10PreviousOwner" value="Colonial Forces">
+								Colonial Forces
+							</label></div>
+							<input type="text" id="ans10PreviousOwner" class="form-control">
+						</div>
+					</form>
+				</div>
+				<div class="question" id="question-11">
+					<span class="question-label">Question 11</span>
+					<form>
+						<div class="form-group">
+							<label>Have you stated the whole, if any, of your previous service?</label>
+							<input type="text" id="ans11PreviousService" class="form-control">
+							<button type="button" class="btn btn-success" data-input="ans11PreviousService">Yes</button>
+							<button type="button" class="btn btn-warning" data-input="ans11PreviousService">No</button>
+						</div>
+					</form>
+				</div>
+				<div class="question" id="question-12">
+					<span class="question-label">Question 12</span>
+					<form>
+						<div class="form-group">
+							<label>Have you ever been rejected as unfit for His Majesty's Service?</label>
+							<input type="text" id="ans12Unfit" class="form-control">
+							<button type="button" class="btn btn-success" data-input="ans12Unfit">No</button>
+							<button type="button" class="btn btn-warning" data-input="ans12Unfit">Yes</button>
+						</div>
+					</form>
+				</div>
+				<div class="question" id="question-13">
+					<span class="question-label">Question 13</span>
+					<form>
+						<div class="form-group">
+							<label>Do you understand that no Separation Allowance will be issued in respect of your service beyond an amount which, together with pay, would reach eight shillings per day?</label>
+							<input type="text" id="ans13SepAllowance" class="form-control">
+							<button type="button" class="btn btn-success" data-input="ans13SepAllowance">Yes</button>
+							<button type="button" class="btn btn-warning" data-input="ans13SepAllowance">No</button>
+						</div>
+					</form>
+				</div>
+				<div class="question" id="question-14"><span class="question-label">Question 14</span>
+					<form>
+						<div class="form-group">
+							<label>Are you prepared to undergo inoculation against small-pox and enteric fever?</label>
+							<input type="text" id="ans14Innoc" class="form-control">
+							<button type="button" class="btn btn-success" data-input="ans14Innoc">Yes</button>
+							<button type="button" class="btn btn-warning" data-input="ans14Innoc">No</button>
+						</div>
+					</form>
+				</div>
+				<nav>
+					<ul class="pager">
+						<li class="prev"><a href="#quiz"><span aria-hidden="true">&larr;</span> Back</a></li>
+						<li class="next"><a href="#quiz">Next <span aria-hidden="true">&rarr;</span></a></li>
+					</ul>
+				</nav>
 			</div>
 		</div>
 	</body>

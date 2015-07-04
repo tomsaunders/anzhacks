@@ -1,3 +1,6 @@
 
 www/.idea/
 *.class
+platforms/android/.idea/
+platforms/android/.gradle/
+platforms/android/assets/

@@ -42,14 +42,14 @@ var formRenderer = {
 
 		ans13SepAllowance: "yes, no",
 
-		ans13Innoc: "yes, no",
+		ans14Innoc: "yes, no",
 
 		//  if both are undefined/null, then draw big fat line through it all.
 		allot: "three-fifths", //  or two-fifths
 		support: "wife-children", //  or wife
 
 		dateSigned : "1 / 1/ 1900",
-		signature : "XXX",  // not used
+		signature : "XXX"  // not used
 	},
 
 	hashCode: function(s) {
@@ -156,17 +156,17 @@ var formRenderer = {
 			context.fillText(formData.ans6Apprentice, 547.5,781.5);
 			context.fillText(formData.ans7Marriage, 548.5,817.5);
 			context.fillText(formData.ans8NextKin1, 552.5,857.5);
-			context.fillText(formData.ans8NextKin2, 550.5,886.5);
-			context.fillText(formData.ans8NextKin3, 550.5,915.5);
+			context.fillText(formData.ans8NextKin2 || '', 550.5,886.5);
+			context.fillText(formData.ans8NextKin3 || '', 550.5,915.5);
 
 			context.fillText(formData.ans9addr1, 551.5,968.5);
-			context.fillText(formData.ans9addr2, 554.5,999.5);
-			context.fillText(formData.ans9addr3, 554.5,1035.5);
+			context.fillText(formData.ans9addr2 || '', 554.5,999.5);
+			context.fillText(formData.ans9addr3 || '', 554.5,1035.5);
 			context.fillText(formData.ans10PreviousOwner, 555.5,1096.5);
 			context.fillText(formData.ans11PreviousService, 550.5,1155.5);
 			context.fillText(formData.ans12Unfit, 551.5,1191.5);
 			context.fillText(formData.ans13SepAllowance, 555.5,1248.5);
-			context.fillText(formData.ans13Innoc, 556.5,1310.5);
+			context.fillText(formData.ans14Innoc, 556.5,1310.5);
 
 			context.fillText(formData.ans1Name,124.5,1374.5);
 

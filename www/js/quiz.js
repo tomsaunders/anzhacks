@@ -1,6 +1,7 @@
 var quiz = {
+	commonwealthMatches: ['Australian Capital Territory', 'Tasmania', 'New South Wales', 'Australia'],
 	currentQuestion: 0, //not 0 indexed. no question 0 or answer 0
-	answers: ['dummy'],
+	answers: {},
 
 	init: function(){
 		this.$pagination = $('#quiz .pagination');
@@ -31,13 +32,10 @@ var quiz = {
 
 		var $input10 = $('#ans10PreviousOwner');
 		$('div#question-10').on('click', '.checkbox', function(){
-			console.log('checkbox click');
 			var newval = [];
 			$('.checkbox input').each(function(i,e){
-				console.log(i,e);
 				e = $(e);
 				if (e.prop('checked')){
-					console.log('checked!', e.val());
 					newval.push(e.val())
 				}
 			})
@@ -47,15 +45,25 @@ var quiz = {
 	start: function(user){
 		if (user){
 			$('#ans1Name').val(user.name).attr('disabled', true);
+			this.answers.no = _.random(1000, 500000);
+			this.answers.unit = 'Rando Team';
+			this.answers.joinedOn = "Jul 1915";
+			this.answers.surname = user.last_name;
+			this.answers.christianName = user.first_name;
+
 			$('#ans2').val(user.hometown.name);
 			var bits = user.hometown.name.split(', ');
 			var town = bits[0];
-			var country = bits[1]; //TODO check whether 'Sydney, Australia' is a typical format
+			var country = bits[1];
+			this.answers.ans2Town = town;
+			this.answers.ans2County = country;
 
-			if (country == 'Australia'){ //TODO check all countries in commonwealth
+			if (this.commonwealthMatches.indexOf(country) !== -1){
 				$('#ans3Radio1').prop('checked', true);
+				this.answers.ans3BritishSubject = 'Natural Born';
 			} else {
 				$('#ans3Radio2').prop('checked', true);
+				this.answers.ans3BritishSubject = 'Naturalized'
 			}
 
 			var birthdates = user.birthday.split('/');
@@ -81,9 +89,8 @@ var quiz = {
 	},
 	update: function(direction){
 		var next = this.currentQuestion + direction;
-		console.log('up', '#question-' + this.currentQuestion, 'down', '#question-' + next);
-		$('#question-' + this.currentQuestion).slideUp(1000, 'swing', function(){
-			$('#question-' + next).slideDown(1000);
+		$('#question-' + this.currentQuestion).slideUp(500, 'swing', function(){
+			$('#question-' + next).slideDown(500);
 		});
 		this.currentQuestion = next;
 
@@ -95,14 +102,29 @@ var quiz = {
 		} else {
 			this.$prev.show();
 		}
+
+		if (this.currentQuestion == 15){
+			//gone off the edge of the world
+			app.gotQuiz(this.answers);
+		}
+
 	},
 	save: function(){
-		var answer = {};
 		$('.question input').each(function(i, e){
 			e = $(e);
-			var field = e.attr('name');
-			answer[field] = e.val();
-		})
-		quiz.answers[quiz.currentQuestion] = answer;
+			var field = e.attr('id');
+			quiz.answers[field] = e.val();
+		});
+
+		this.answers['support'] = (this.answers['ans7Marriage'] == 'Yes')
+			? 'wife'
+			: false;
+		this.answers['allot'] = (this.answers['ans7Marriage'] == 'Yes')
+			? 'two-fifths'
+			: false;
+
+		var now = new Date();
+		var d = [now.getDate(), now.getMonth() + 1, '1915'];
+		this.answers['dateSigned'] = d.join(" / ");
 	}
 }

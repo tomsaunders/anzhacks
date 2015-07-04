@@ -76,10 +76,10 @@ var awm = {
 			return {
 				peeps: result.results,
 				totalCount : result.results.length,
-				name : firstName,
+				name : firstName
 			}
 		});
-	},
+	}
 
 
 }

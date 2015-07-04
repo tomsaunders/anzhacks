@@ -2,6 +2,9 @@ var awm = {
 	appKey: 'ww1hack2015',
 	url: 'http://www.awm.gov.au/direct/data.php',
 
+	// q is special search query . * for match all.
+	// type filters on types of objects available.  See search* functions below for examples
+	// returns a promise that you can attach a .then() to be called when complete.
 	search: function(q, start, count, type) {
 
 		var param = $.param({key: "ww1hack2015", start: start || 1, count: count || 1000, q: q||"*", labels:true, format:"json"});
@@ -55,6 +58,7 @@ var awm = {
 		});
 	},
 
+	//  map name to more common name
 	oldTimey: function(name){
 		switch (name){
 			case 'Tom': name = 'Thomas'; break;
@@ -64,6 +68,8 @@ var awm = {
 		return name;
 	},
 
+
+	//  used by index.js for example
 	getWarPeeps: function(lastName, firstName){
 		firstName = this.oldTimey(firstName);
 		return awm.searchPeople(firstName).then(function(result) {

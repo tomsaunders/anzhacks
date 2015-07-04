@@ -147,9 +147,9 @@ var formRenderer = {
 			context.fillText(formData.joinedOn, 391.5, 417.5);
 
 			context.fillText(formData.ans1Name, 559.5,501.5);
-			context.fillText(formData.ans2Parish, 676.5,538.5);
-			context.fillText(formData.ans2Town, 702.5,574.5);
-			context.fillText(formData.ans2County, 703.5,608.5);
+			context.fillText(formData.ans2Parish || '', 676.5,538.5);
+			context.fillText(formData.ans2Town || '', 702.5,574.5);
+			context.fillText(formData.ans2County || '', 703.5,608.5);
 			context.fillText(formData.ans3BritishSubject, 554.5,659.5);
 			context.fillText(formData.ans4Age, 551.5,708.5);
 			context.fillText(formData.ans5Trade, 553.5,745.5);

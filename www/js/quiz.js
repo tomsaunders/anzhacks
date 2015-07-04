@@ -66,11 +66,19 @@ var quiz = {
 				this.answers.ans3BritishSubject = 'Naturalized'
 			}
 
-			var birthdates = user.birthday.split('/');
-			//TODO calculate birthday properly
+			var birthdates = user.birthday.split('/'); //in US format mm/dd/yyyy
 			var now = new Date();
-			var age = now.getFullYear() - parseInt(birthdates[2], 10);
-			$('#ans4age').val(age);
+			var birth = new Date(parseInt(birthdates[2], 10), parseInt(birthdates[0], 10), parseInt(birthdates[1], 10));
+			var diff = now - birth;
+			var yearInMS = 365 * 24 * 60 * 60 * 1000; //lets ignore leap stuff
+
+			var years = Math.floor(diff / yearInMS);
+			var rem = diff / yearInMS % 1;
+			var mths = Math.round(rem * 12);
+
+			var age = years + '     ' + mths + '/12';
+
+			$('#ans4Age').val(age);
 
 			$('#ans7Marriage').val(user.significant_other ? 'Yes' : 'No');
 
@@ -84,7 +92,7 @@ var quiz = {
 		} else {
 			$('.fb-prefill').hide();
 		}
-		this.update(1);
+		this.update(14);
 		$("#quiz").show();
 	},
 	update: function(direction){

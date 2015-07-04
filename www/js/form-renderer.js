@@ -1,3 +1,17 @@
+var fontLoaded = new Promise(function (resolve, reject) {
+	WebFontConfig = {
+		google: { families: [ 'Homemade Apple' ] },
+		 fontactive: function(familyName, fvd) {
+			console.log("loaded:" + familyName)
+			resolve(familyName);
+		 },
+		 fontinactive: function(familyName, fvd) {
+			console.log("failed loading:" + familyName)
+			reject(familyName);
+		 },
+	};
+});
+
 var formRenderer = {
 
 	exampleData: {
@@ -49,21 +63,36 @@ var formRenderer = {
 
 	},
 
+	loadImg: function (url) {
+		return new Promise(function (resolve, reject) {
+			img = new Image();
+			img.onload = function() {
+				resolve(img);
+			};
+			img.onerror = function() {
+				reject("error");
+			}
+			img.src = url;
+		});
+	},
+
 	example: function() {
 		//  do something sweet.
 
 		var canvas = document.getElementById('render-output');
-        var context = canvas.getContext('2d');
+		var context = canvas.getContext('2d');
 
 		function puts(value, x, y) {
-        	context.font = "14pt 'Homemade Apple'";
+			context.font = "14pt 'Homemade Apple'";
 			context.fillText(""+value, x, y);
-        }
+		}
 
-        var formBgImage = new Image();
-        formBgImage.onload = function() {
-          context.drawImage(this, 0, 0);
+		var imageLoaded = formRenderer.loadImg("img/form-bg.png");
 
+		Promise.all([imageLoaded, fontLoaded])
+		.then(function(values) {
+			var formBgImage = values[0];
+			context.drawImage(formBgImage, 0, 0);
 
 			puts(formRenderer.exampleData.no, 92, 299);
 			puts(formRenderer.exampleData.surname, 430, 292);
@@ -95,30 +124,29 @@ var formRenderer = {
 
 			puts(formRenderer.exampleData.ans1Name,124.5,1374.5);
 
-
 			puts(formRenderer.exampleData.dateSigned, 148.5,1507.5);
 			puts(formRenderer.exampleData.signature, 615.5,1501.5);
 
-        };
-        formBgImage.src = "img/form-bg.png";
+			//  For debugging, print text and position.
+			$('#render-output').click(function (e) { //Offset mouse Position
+				var posX = $(this).offset().left,
+					posY = $(this).offset().top;
 
-        $('#render-output').click(function (e) { //Offset mouse Position
-			var posX = $(this).offset().left,
-				posY = $(this).offset().top;
+				var relPosX = e.pageX - posX;
+				var relPosY = e.pageY - posY;
+				// alert((e.pageX - posX) + ' , ' + (e.pageY - posY));
 
-			var relPosX = e.pageX - posX;
-			var relPosY = e.pageY - posY;
-			// alert((e.pageX - posX) + ' , ' + (e.pageY - posY));
+				//  clear
+				context.drawImage(formBgImage, 0, 0);
 
-			//  clear
-			context.drawImage(formBgImage, 0, 0);
+				context.font = "10pt 'Helvetica'";
+				context.fillText('pos:'+relPosX+","+relPosY, 10, 30);
+				$("#pos").text(relPosX+","+relPosY);
 
-			context.font = "10pt 'Helvetica'";
-			context.fillText('pos:'+relPosX+","+relPosY, 10, 30);
-			$("#pos").text(relPosX+","+relPosY);
+				puts ("The quick brown fox jumped over the lazy dogs.", relPosX, relPosY);
+			});
 
-			puts ("The quick brown fox jumped over the lazy dogs.", relPosX, relPosY);
-	    });
+		});
 
 	},
 

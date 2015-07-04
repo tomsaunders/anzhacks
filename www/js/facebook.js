@@ -22,17 +22,20 @@ var fbController = {
 		});
 	},
 
-	gotLogin: function(login){
-		var $loginBtn = $('#fbLogin');
-		if (login.status === 'connected') {
-			console.log('Logged in.', login);
+	loginBtnClick: function(){
+		FB.login($.proxy(fbController.gotLogin, fbController), {scope: fbController.requiredScope, return_scopes: true});
+	},
+
+	gotLogin: function(response){
+		console.log ("Response: " + response.status);
+		if (response.status === 'connected') {
+			console.log('Logged in.', response);
 			$('.jumbotron').append('<div class="alert alert-success" role="alert">You have logged in with Facebook</div>');
-			fbController.saveAuth(login.authResponse);
+			fbController.saveAuth(response.authResponse);
 			fbController.getUser();
 		} else {
-			$loginBtn.show().click(function(){
-				FB.login($.proxy(fbController.gotLogin, fbController), {scope: fbController.requiredScope, return_scopes: true});
-			})
+			var $loginBtn = $('#fbLogin');
+			$loginBtn.show().unbind(fbController.loginBtnClick).click(fbController.loginBtnClick);
 		}
 	},
 

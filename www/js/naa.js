@@ -8,12 +8,13 @@ var naa = {
 	},
 	getAnzacs: function(lastName, firstName){
 		firstName = this.oldTimey(firstName);
-		this.getRequest(lastName, function(){
-			console.log('got getrequest', arguments);
-		})
+//		this.getRequest(lastName, function(){
+//			console.log('got getrequest', arguments);
+//		})
 
-		this.postRequest({first_name: firstName, last_name: lastName}, function(){
+		this.postRequest({first_name: firstName, last_name: lastName}, function(data){
 			console.log('NAA post request result', arguments);
+			app.gotAnzacs(data.ResultSet, data.result_count, firstName + ' ' + lastName);
 		});
 	},
 	oldTimey: function(name){

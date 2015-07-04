@@ -7,7 +7,6 @@ anzhacks on the FB side has been configured to expect login requests from anzhac
 
 to get this working, I had to:
 
-
 * add an /etc/hosts entry for 127.0.0.1 anzhacks.com
 * add an apache vhosts config in /etc/apache2/extra/httpd-vhosts.conf saying
     ```

@@ -4,4 +4,4 @@ www/.idea/
 platforms/android/.idea/
 platforms/android/.gradle/
 platforms/android/CordovaLib/build/
-platforms/android/assets/
+platforms/android/assets/*

@@ -1,17 +1,3 @@
-var fontLoaded = new Promise(function (resolve, reject) {
-	WebFontConfig = {
-		google: { families: [ 'Homemade Apple' ] },
-		 fontactive: function(familyName, fvd) {
-			console.log("loaded:" + familyName)
-			resolve(familyName);
-		 },
-		 fontinactive: function(familyName, fvd) {
-			console.log("failed loading:" + familyName)
-			reject(familyName);
-		 },
-	};
-});
-
 var formRenderer = {
 
 	exampleData: {
@@ -59,73 +45,89 @@ var formRenderer = {
 		dateSigned : "1 / 1/ 1900",
 
 		signature : "XXX",
+	},
 
-
+	loadFont: function (familes) {
+		return new Promise(function (resolve, reject) {
+			WebFont.load({
+				google: { families: familes },
+				fontactive: function(familyName, fvd) { resolve(familyName); },
+				fontinactive: function(familyName, fvd) { reject(familyName); },
+			});
+		});
 	},
 
 	loadImg: function (url) {
 		return new Promise(function (resolve, reject) {
 			img = new Image();
-			img.onload = function() {
-				resolve(img);
-			};
-			img.onerror = function() {
-				reject("error");
-			}
+			img.onload = function() { resolve(img); };
+			img.onerror = function() { reject("error loading: " + url); }
 			img.src = url;
+		});
+	},
+
+	puts: function (context, value, x, y) {
+		context.font = "14pt 'Homemade Apple'";
+		context.fillText(""+value, x, y);
+	},
+
+	renderForm: function(formData) {
+		var imageLoaded = formRenderer.loadImg("img/form-bg.png");
+		var fontLoaded = formRenderer.loadFont(["Homemade Apple"])
+
+		return Promise.all([imageLoaded, fontLoaded])
+		.then(function(values) {
+			var formBgImage = values[0];
+
+			var canvas = document.getElementById('render-output');
+			var context = canvas.getContext('2d');
+
+			context.drawImage(formBgImage, 0, 0);
+
+			formRenderer.puts(context, formData.no, 92, 299);
+			formRenderer.puts(context, formData.surname, 430, 292);
+			formRenderer.puts(context, formData.christianName, 497, 333.5);
+			formRenderer.puts(context, formData.unit, 319, 375);
+			formRenderer.puts(context, formData.joinedOn, 391.5, 417.5);
+
+			formRenderer.puts(context, formData.ans1Name, 559.5,501.5);
+			formRenderer.puts(context, formData.ans2Parish, 676.5,538.5);
+			formRenderer.puts(context, formData.ans2Town, 702.5,574.5);
+			formRenderer.puts(context, formData.ans2County, 703.5,608.5);
+			formRenderer.puts(context, formData.ans3BritishSubject, 554.5,659.5);
+			formRenderer.puts(context, formData.ans4Age, 551.5,708.5);
+			formRenderer.puts(context, formData.ans5Trade, 553.5,745.5);
+			formRenderer.puts(context, formData.ans6Apprentice, 547.5,781.5);
+			formRenderer.puts(context, formData.ans7Marriage, 548.5,817.5);
+			formRenderer.puts(context, formData.ans8NextKin1, 552.5,857.5);
+			formRenderer.puts(context, formData.ans8NextKin2, 550.5,886.5);
+			formRenderer.puts(context, formData.ans8NextKin3, 550.5,915.5);
+
+			formRenderer.puts(context, formData.ans9addr1, 551.5,968.5);
+			formRenderer.puts(context, formData.ans9addr2, 554.5,999.5);
+			formRenderer.puts(context, formData.ans9addr3, 554.5,1035.5);
+			formRenderer.puts(context, formData.ans10PreviousOwner, 555.5,1096.5);
+			formRenderer.puts(context, formData.ans11PreviousService, 550.5,1155.5);
+			formRenderer.puts(context, formData.ans12Unfit, 551.5,1191.5);
+			formRenderer.puts(context, formData.ans13SepAllowance, 555.5,1248.5);
+			formRenderer.puts(context, formData.ans13Innoc, 556.5,1310.5);
+
+			formRenderer.puts(context, formData.ans1Name,124.5,1374.5);
+
+			formRenderer.puts(context, formData.dateSigned, 148.5,1507.5);
+			formRenderer.puts(context, formData.signature, 615.5,1501.5);
+
+			return values;
 		});
 	},
 
 	example: function() {
 		//  do something sweet.
-
-		var canvas = document.getElementById('render-output');
-		var context = canvas.getContext('2d');
-
-		function puts(value, x, y) {
-			context.font = "14pt 'Homemade Apple'";
-			context.fillText(""+value, x, y);
-		}
-
-		var imageLoaded = formRenderer.loadImg("img/form-bg.png");
-
-		Promise.all([imageLoaded, fontLoaded])
-		.then(function(values) {
+		formRenderer.renderForm(formRenderer.exampleData).then(function(values) {
 			var formBgImage = values[0];
-			context.drawImage(formBgImage, 0, 0);
 
-			puts(formRenderer.exampleData.no, 92, 299);
-			puts(formRenderer.exampleData.surname, 430, 292);
-			puts(formRenderer.exampleData.christianName, 497, 333.5);
-			puts(formRenderer.exampleData.unit, 319, 375);
-			puts(formRenderer.exampleData.joinedOn, 391.5, 417.5);
-
-			puts(formRenderer.exampleData.ans1Name, 559.5,501.5);
-			puts(formRenderer.exampleData.ans2Parish, 676.5,538.5);
-			puts(formRenderer.exampleData.ans2Town, 702.5,574.5);
-			puts(formRenderer.exampleData.ans2County, 703.5,608.5);
-			puts(formRenderer.exampleData.ans3BritishSubject, 554.5,659.5);
-			puts(formRenderer.exampleData.ans4Age, 551.5,708.5);
-			puts(formRenderer.exampleData.ans5Trade, 553.5,745.5);
-			puts(formRenderer.exampleData.ans6Apprentice, 547.5,781.5);
-			puts(formRenderer.exampleData.ans7Marriage, 548.5,817.5);
-			puts(formRenderer.exampleData.ans8NextKin1, 552.5,857.5);
-			puts(formRenderer.exampleData.ans8NextKin2, 550.5,886.5);
-			puts(formRenderer.exampleData.ans8NextKin3, 550.5,915.5);
-
-			puts(formRenderer.exampleData.ans9addr1, 551.5,968.5);
-			puts(formRenderer.exampleData.ans9addr2, 554.5,999.5);
-			puts(formRenderer.exampleData.ans9addr3, 554.5,1035.5);
-			puts(formRenderer.exampleData.ans10PreviousOwner, 555.5,1096.5);
-			puts(formRenderer.exampleData.ans11PreviousService, 550.5,1155.5);
-			puts(formRenderer.exampleData.ans12Unfit, 551.5,1191.5);
-			puts(formRenderer.exampleData.ans13SepAllowance, 555.5,1248.5);
-			puts(formRenderer.exampleData.ans13Innoc, 556.5,1310.5);
-
-			puts(formRenderer.exampleData.ans1Name,124.5,1374.5);
-
-			puts(formRenderer.exampleData.dateSigned, 148.5,1507.5);
-			puts(formRenderer.exampleData.signature, 615.5,1501.5);
+			var canvas = document.getElementById('render-output');
+			var context = canvas.getContext('2d');
 
 			//  For debugging, print text and position.
 			$('#render-output').click(function (e) { //Offset mouse Position
@@ -143,10 +145,10 @@ var formRenderer = {
 				context.fillText('pos:'+relPosX+","+relPosY, 10, 30);
 				$("#pos").text(relPosX+","+relPosY);
 
-				puts ("The quick brown fox jumped over the lazy dogs.", relPosX, relPosY);
+				formRenderer.puts (context, "The quick brown fox jumped over the lazy dogs.", relPosX, relPosY);
 			});
-
 		});
+
 
 	},
 

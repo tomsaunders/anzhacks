@@ -32,7 +32,7 @@ var fbController = {
 			console.log('Logged in.', response);
 			$('.jumbotron').append('<div class="alert alert-success" role="alert">You have logged in with Facebook</div>');
 			fbController.saveAuth(response.authResponse);
-			fbController.getUser();
+			app.loggedIn();
 		} else {
 			var $loginBtn = $('#fbLogin');
 			$loginBtn.show().unbind(fbController.loginBtnClick).click(fbController.loginBtnClick);
@@ -50,7 +50,7 @@ var fbController = {
 			console.log('/me response', me);
 			$('.jumbotron').append('<div class="alert alert-success" role="alert">Hello, ' + me.name + '</div>');
 			$('.jumbotron').append('<div id="friends" class="alert alert-info" role="alert">Loading friends...</div>');
-			fbController.getFriends();
+			app.gotUser(me);
 		});
 	},
 

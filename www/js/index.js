@@ -48,8 +48,6 @@ var app = {
 		$('.jumbotron').append('<div class="alert alert-success" role="alert">Hello, ' + user.name + '</div>');
 //		$('.jumbotron').append('<div id="friends" class="alert alert-info" role="alert">Loading friends...</div>');
 
-		//quiz.start(this.user);
-
 //		naa.getAnzacs(this.user.last_name, this.user.first_name);
 //		awm.getWarPeeps(this.user.last_name, this.user.first_name).then(app.gotWarPeeps);
 	},
@@ -69,7 +67,8 @@ var app = {
 		$('#warpeeps').text(result.peeps.length + ' war peeps found matching ' + result.name);
 	},
 	gotQuiz: function(formData){
-		$("#render-output").show();
+		$('#quiz').slideUp(500);
+		$("#render-output").slideDown(2000);
 		formRenderer.renderForm(formData);
 	}
 

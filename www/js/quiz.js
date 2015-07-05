@@ -92,7 +92,7 @@ var quiz = {
 		} else {
 			$('.fb-prefill').hide();
 		}
-		this.update(14);
+		this.update(1);
 		$("#quiz").show();
 	},
 	update: function(direction){

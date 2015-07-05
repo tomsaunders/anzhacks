@@ -44,7 +44,8 @@ var app = {
 	},
 	gotUser: function(user){
 		this.user = user;
-//		$('.jumbotron').append('<div class="alert alert-success" role="alert">Hello, ' + user.name + '</div>');
+		$('#choice img').slideDown(1000);
+		$('.jumbotron').append('<div class="alert alert-success" role="alert">Hello, ' + user.name + '</div>');
 //		$('.jumbotron').append('<div id="friends" class="alert alert-info" role="alert">Loading friends...</div>');
 
 		//quiz.start(this.user);

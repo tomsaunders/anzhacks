@@ -20,8 +20,7 @@ var unit = {
 		var keys = [];
 		for (var uid in this.options) keys.push(uid);
 
-		var index = _.random(keys.length);
-		var key = keys[index];
+		var key = _.sample(keys);
 
 		this.unitID = key;
 		var selectedUnit = this.options[key];

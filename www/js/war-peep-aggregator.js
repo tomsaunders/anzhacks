@@ -1,5 +1,15 @@
 var warPeepAggregator = {
 
+	main: function(user) {
+		var self = this;
+
+		self.bestGuessSearch(user.last_name, user.first_name).then(function(data) {
+			_.each(data, function(x) {
+				$("#search-results").append("<span>" + x.name + "<br>  </span>")
+			})
+		});
+	},
+
 	mapNaa: function(data) {
 		return _.map(data.ResultSet, function(value) {
 			return {

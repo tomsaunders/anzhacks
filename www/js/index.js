@@ -12,7 +12,7 @@ var app = {
 		$('#enlist').click(function(){
 			app.startEnlistment();
 		});
-		
+
 		$('#dontenlist').click(function(){
 			app.dontEnlist();
 		});
@@ -33,6 +33,8 @@ var app = {
 	searchPeeps: function() {
 		console.log('Searching Peeps...');
 		$("#choice").hide();
+
+		warPeepAggregator.main(this.user);
 	},
 	loggedIn: function(){
 //		$('.jumbotron').append('<div class="alert alert-success" role="alert">You have logged in with Facebook</div>');

@@ -23,8 +23,33 @@ var unit = {
 		var index = _.random(keys.length);
 		var key = keys[index];
 
+		this.unitID = key;
 		var selectedUnit = this.options[key];
 
 		app.gotUnit(selectedUnit);
+	},
+	getInfo: function($display){
+//		awm.searchUnits()
+		return awm.searchUnits('id:' + this.unitID).then(function(result) {
+			result = result.results[0];
+
+			console.log('search unit result', result, result.description, result.decorations[0], result.casualties[0]);
+			var title = result.title;
+
+			$display.append(
+				'<div class="well">' + result.description + '</div>'
+			)
+			$display.append(
+				'<div class="alert alert-success" role="alert">In total, the soliders of the ' + title + ' were awarded ' + result.decorations[0] + '</div>'
+			);
+			$display.append(
+				'<div class="alert alert-warning" role="alert">Casualties:  ' + result.casualties[0] + '</div>'
+			)
+//			return {
+//				peeps: result.results,
+//				totalCount : result.results.length,
+//				name : firstName
+//			}
+		});
 	}
 };

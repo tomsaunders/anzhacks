@@ -48,10 +48,11 @@ var app = {
 		this.user = user;
 		$('#choice img').slideDown(1000);
 		$('.jumbotron').append('<div class="alert alert-success" role="alert">Hello, ' + user.name + '</div>');
-//		$('.jumbotron').append('<div id="friends" class="alert alert-info" role="alert">Loading friends...</div>');
 
-//		naa.getAnzacs(this.user.last_name, this.user.first_name);
-//		awm.getWarPeeps(this.user.last_name, this.user.first_name).then(app.gotWarPeeps);
+		//to skip straight to the attestment form, uncomment these lines and comment out the #choice animation
+//		quiz.start(this.user);
+//		quiz.save();
+//		app.gotQuiz(quiz.answers);
 	},
 	gotProfilePic: function(url) {
 		//$('.jumbotron').append('<div id="profile"><img class="sepia" src="' + url + '""></div>');
@@ -72,12 +73,15 @@ var app = {
 		this.formData = formData;
 		unit.pickUnit();
 	},
-	gotUnit: function(unit){
-		this.formData.unit = unit;
+	gotUnit: function(unitName){
+		this.formData.unit = unitName;
+		$('#unitInfoMsg').append('<div class="alert alert-success" role="alert">You have been assigned to ' + unitName + '</div>');
 
 		$('#quiz').slideUp(500);
 		$("#render-output").slideDown(2000);
 		formRenderer.renderForm(this.formData);
+
+		unit.getInfo($('#unitInfo'));
 	}
 
 }

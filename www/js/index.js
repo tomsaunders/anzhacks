@@ -62,6 +62,9 @@ var app = {
 	gotWarPeeps: function(result) {
 		$('.jumbotron').append('<div id="warpeeps" class="alert alert-warning" role="alert">Loading friends...</div>');
 		$('#warpeeps').text(result.peeps.length + ' war peeps found matching ' + result.name);
+	},
+	gotQuiz: function(formData){
+		formRenderer.renderForm(formData);
 	}
 
 }

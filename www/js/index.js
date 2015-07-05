@@ -34,7 +34,6 @@ var app = {
 	searchPeeps: function() {
 		console.log('Searching Peeps...');
 		$("#choice").hide();
-		$("render-output").show();
 
 		warPeepAggregator.main(this.user);
 	},
@@ -69,6 +68,7 @@ var app = {
 		$('#warpeeps').text(result.peeps.length + ' war peeps found matching ' + result.name);
 	},
 	gotQuiz: function(formData){
+		$("#render-output").show();
 		formRenderer.renderForm(formData);
 	}
 

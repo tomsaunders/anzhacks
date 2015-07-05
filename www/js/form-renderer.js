@@ -105,6 +105,8 @@ var formRenderer = {
 	},
 
 	renderForm: function(formData) {
+		$("#render-output").show();
+
 		var familyName = formRenderer.uniqueFontFamilyName(formData.surname+formData.christianName);
 		var fontLoaded = formRenderer.loadFont([familyName]);
 

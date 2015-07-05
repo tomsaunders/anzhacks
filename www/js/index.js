@@ -29,10 +29,12 @@ var app = {
 	dontEnlist: function() {
 		console.log('Don\'t Enlist...');
 		$("#choice").hide();
+		fbController.getFriends();
 	},
 	searchPeeps: function() {
 		console.log('Searching Peeps...');
 		$("#choice").hide();
+		$("render-output").show();
 
 		warPeepAggregator.main(this.user);
 	},
@@ -47,7 +49,7 @@ var app = {
 //		$('.jumbotron').append('<div id="friends" class="alert alert-info" role="alert">Loading friends...</div>');
 
 		//quiz.start(this.user);
-//		fbController.getFriends();
+
 //		naa.getAnzacs(this.user.last_name, this.user.first_name);
 //		awm.getWarPeeps(this.user.last_name, this.user.first_name).then(app.gotWarPeeps);
 	},
@@ -55,6 +57,7 @@ var app = {
 		//$('.jumbotron').append('<div id="profile"><img class="sepia" src="' + url + '""></div>');
 	},
 	gotFriends: function(friends){
+		$('#friends').show()
 		$('#friends').text(friends.length + ' friends loaded');
 	},
 	gotAnzacs: function(anzacs, totalCount, name){

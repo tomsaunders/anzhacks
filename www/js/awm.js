@@ -7,7 +7,7 @@ var awm = {
 	// returns a promise that you can attach a .then() to be called when complete.
 	search: function(q, start, count, type) {
 
-		var rawp = {key: "ww1hack2015", start: start || 1, count: count || 1000, labels:true, format:"json", q:q}
+		var rawp = {key: "ww1hack2015", start: start || 0, count: count || 1000, labels:true, format:"json", q:q}
 		if (type) {
 			rawp.type = type;
 		}

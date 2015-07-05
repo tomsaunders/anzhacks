@@ -29,7 +29,9 @@ var app = {
 	dontEnlist: function() {
 		console.log('Don\'t Enlist...');
 		$("#choice").hide();
-		fbController.getFriends();
+		// fbController.getFriends();
+		$("#facebook-friends").show();
+		friendStats.main();
 	},
 	searchPeeps: function() {
 		console.log('Searching Peeps...');

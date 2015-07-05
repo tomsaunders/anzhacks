@@ -74,5 +74,28 @@ var fbController = {
 			this.friends.push(friends[f].name);
 		}
 		app.gotFriends(this.friends);
-	}
+	},
+
+	getAllFriends: function() {
+		var url = '/' + this.userID + '/taggable_friends';
+
+		return new Promise(function(resolve, reject) {
+			var result = [];
+			var callback = function(response) {
+				if (!response || response.error) {
+					reject(response.error);
+					return;
+				}
+				result = result.concat(_.pluck(response.data, "name"));
+				if (response.paging && response.paging.next) {
+					FB.api(response.paging.next, callback);
+				} else {
+					resolve(result);
+					return;
+				}
+			}
+			FB.api(url, callback);
+		});
+	},
+
 }

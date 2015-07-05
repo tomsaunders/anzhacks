@@ -172,14 +172,14 @@ var formRenderer = {
 
 			context.fillText(formData.ans1Name,124.5,1374.5);
 
-			if (formData.allot === "two-fifths") {
+			if (formData.allot === "three-fifths") {
 				context.drawImage(lineTwoFifthsImg, 421.5,1428.5);
-			} else if (formData.allot === "three-fifths") {
+			} else if (formData.allot === "two-fifths") {
 				context.drawImage(lineThreeFifthsImg, 422.5,1444.5);
 			}
-			if (formData.support === "wife") {
+			if (formData.support === "wife-children") {
 				context.drawImage(lineWifeImg, 216.5,1459.5);
-			} else if (formData.support === "wife-children") {
+			} else if (formData.support === "wife") {
 				context.drawImage(lineWifeAndChildrenImg, 217.5,1477.5);
 			}
 

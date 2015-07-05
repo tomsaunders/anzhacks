@@ -50,5 +50,29 @@ var naa = {
 			method: 'GET',
 			success: callback
 		});
-	}
+	},
+	generalRequest: function(queryFields, page, rows) {
+		var self = this;
+		return new Promise(function(resolve, reject) {
+			page = page || '1';
+			rows = rows || '100';
+
+			$.ajax(self.getURL(), {
+				contentType: 'application/json',
+				method: 'POST',
+				data: JSON.stringify({
+					page: page,
+					rows: rows,
+					query_fields: queryFields
+				}),
+				processData: false,
+				success: function(data, textStatus, jqXHR) {
+					resolve(data);
+				},
+				error: function (jqXHR, textStatus, errorThrown) {
+					reject (errorThrown);
+				},
+			});
+		});
+	},
 }

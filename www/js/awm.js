@@ -1,27 +1,29 @@
 var awm = {
 	appKey: 'ww1hack2015',
-	url: 'http://www.awm.gov.au/direct/data.php',
+	url: 'https://www.awm.gov.au/direct/data.php',
 
 	// q is special search query . * for match all.
 	// type filters on types of objects available.  See search* functions below for examples
 	// returns a promise that you can attach a .then() to be called when complete.
 	search: function(q, start, count, type) {
 
-		var param = $.param({key: "ww1hack2015", start: start || 1, count: count || 1000, q: q||"*", labels:true, format:"json"});
+		var rawp = {key: "ww1hack2015", start: start || 1, count: count || 1000, labels:true, format:"json", q:q}
 		if (type) {
-			param.type = type;
+			rawp.type = type;
 		}
 
-		// console.log(param);
+		param_str = _.chain(rawp).map(function(value, key) {
+			return key+"="+value;
+		}).join("&");
 
-		var fullRequest = awm.url + "?" + param;
-		console.log("GET: " + fullRequest);
+		var fullRequest = awm.url + "?" + param_str;
+		// console.log("GET: " + fullRequest);
 
 		return fetch (fullRequest)
 		  .then(
 			function(response) {
 				if (response.status !== 200) {
-					throw new Exception('Looks like there was a problem. Status Code: ' + response.status)
+					return Promise.reject ('Looks like there was a problem. Status Code: ' + response.status);
 				}
 				return response.json();
 			}

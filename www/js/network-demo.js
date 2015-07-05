@@ -24,6 +24,7 @@ assume that all friends passed to the app are 'eligible' to enlist
 // works out percentage of friends affected by specific statistic (if that makes sense ie if pass
 // in 100 and 0.387 then 38 of my friends are )
 
+
 function getFriendsCount(inCount, inPercentage) {
 	var percentageOfFriends = inCount * inPercentage;
 	var myNumber = parseInt(percentageOfFriends);
@@ -85,3 +86,46 @@ var myStatisticalObject = new statisticalObject("powDeaths",0.1," of your friend
 	
 	return dataArray;
 }
+
+/*
+function setData(){
+//var myNetwork = prompt("How many friends do you have in your Facebook network")
+//myNetwork = parseInt(myNetwork);
+var myNetwork = 100;
+document.getElementById("myFriends").innerHTML = 'You have '+myNetwork+' friends, Now imagine they all enlisted in WW1';
+
+
+var myArray = getData();
+
+/*
+-- not used as it will make more impact if ALL your network enlisted
+var enlistedFriends = getFriendsCount(myNetwork,myArray[0].percentage);
+document.getElementById("friendsEnlisted").innerHTML = enlistedFriends+' '+ myArray[0].text;
+*/
+
+/*
+var enlistedlastYear = getFriendsCount(myNetwork,myArray[1].percentage);
+document.getElementById("enlistedLastYear").innerHTML = enlistedlastYear+' '+ myArray[1].text;
+
+var enlistedThisYear = getFriendsCount(myNetwork,myArray[2].percentage);
+document.getElementById("enlistedThisYear").innerHTML = enlistedThisYear+' '+ myArray[2].text;
+
+var enlistedUntilEnd = getFriendsCount(myNetwork,myArray[3].percentage);
+document.getElementById("enlistedUntilEnd").innerHTML = enlistedUntilEnd+' '+ myArray[3].text;
+
+var servedOverseas = getFriendsCount(myNetwork,myArray[4].percentage);
+document.getElementById("servedOverseas").innerHTML = servedOverseas+' '+ myArray[4].text;
+
+var friendsDeceased = getFriendsCount(servedOverseas,myArray[5].percentage);
+document.getElementById("died").innerHTML = friendsDeceased+' '+ myArray[5].text;
+
+var injured = getFriendsCount(servedOverseas,myArray[6].percentage);
+document.getElementById("injured").innerHTML = injured+' '+ myArray[6].text;
+
+var prisoner = getFriendsCount(servedOverseas,myArray[7].percentage);
+document.getElementById("prisoner").innerHTML = prisoner+' '+ myArray[7].text;
+
+var diedpow = getFriendsCount(prisoner,myArray[8].percentage);
+document.getElementById("diedpow").innerHTML = diedpow+' '+ myArray[8].text;
+}
+*/

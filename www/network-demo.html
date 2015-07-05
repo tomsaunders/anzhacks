@@ -3,22 +3,60 @@
 <head>
 	<title>testing anzhack javascript functions</title>
 
-<!-- Latest compiled and minified CSS -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+	<head>
+		<!--
+		Customize this policy to fit your own app's needs. For more guidance, see:
+			https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+		Some notes:
+			* gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+			* https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+			* Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+				* Enable inline JS: add 'unsafe-inline' to default-src
+		-->
+		<!--<meta http-equiv="Content-Security-Policy"
+			  content="default-src 'self' http: https: data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' https: http: 'unsafe-inline'; media-src *">-->
+		<meta name="format-detection" content="telephone=no">
+		<meta name="msapplication-tap-highlight" content="no">
+		<meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+		<title>ANZHACKS</title>
+		<!-- jQuery -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
-<!-- Optional theme -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://bootswatch.com/superhero/bootstrap.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
-<!-- Latest compiled and minified JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-<script src="js/network-demo.js"></script>
+		<!-- Other Support -->
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/q.js/1.4.1/q.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/webfont/1.5.18/webfont.js"></script>
+
+		<!-- Our stuff -->
+		<link rel="stylesheet" href="css/index.css" />
+		<script type="text/javascript" src="cordova.js"></script>
+		<script type="text/javascript" src="js/index.js"></script>
+		<script type="text/javascript" src="js/facebook.js"></script>
+		
+		<script type="text/javascript" src="js/naa.js"></script>
+		<script type="text/javascript" src="js/awm.js"></script>
+		<script type="text/javascript" src="js/quiz.js"></script>
+		<script type="text/javascript" src="js/form-renderer.js"></script>
+		<script type="text/javascript" src="js/network-demo.js"></script>
 </head>
 <body>
+<div class="container">
+			<div class="jumbotron">
+				<h1>ANZhACks</h1>
+				<p class="lead">Historical empathy via social media networks</p>
+				<p><a class="btn btn-lg btn-success" href="#" role="button" id="fbLogin">Log in with Facebook</a></p>
+				<p id="friends"></p>
+			</div>
 <div class="row">
-  <div class="col-md-2"></div>
-  <div class="col-md-8">
+  <!--<div class="col-md-1"></div>-->
+  <div class="col-md-12">
 
-<h1>Your network in World War 1</h1>
+<!--<h1>Your network in World War 1</h1>-->
 
 <div class="panel panel-default">
   <div class="panel-body">
@@ -104,9 +142,19 @@ excluded the stat for this need to fix
 
 
 </div>
-  <div class="col-md-2"></div>
+ <!-- <div class="col-md-1"></div> -->
+  </div>
+
 
 <script>
+
+//var myNetwork = app.friendsCount();
+
+
+	
+//var myNetwork = friends.length;
+//prompt("you have this many friends",myNetwork);
+
 var myNetwork = prompt("How many friends do you have in your Facebook network")
 myNetwork = parseInt(myNetwork);
 document.getElementById("myFriends").innerHTML = 'You have '+myNetwork+' friends, Now imagine they all enlisted in WW1';
@@ -147,12 +195,7 @@ document.getElementById("diedpow").innerHTML = diedpow+' '+ myArray[8].text;
 
 
 
-/*
-for (var i = 0; i < myArray.length; i++){
-	var enlistedFriends = getFriendsCount(100,myArray[i].percentage)+' '+ myArray[i].text;
-	document.getElementById("demo").innerHTML += enlistedFriends;
-}
-*/
+
 
 </script>
 

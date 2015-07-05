@@ -67,9 +67,15 @@ var app = {
 		$('#warpeeps').text(result.peeps.length + ' war peeps found matching ' + result.name);
 	},
 	gotQuiz: function(formData){
+		this.formData = formData;
+		unit.pickUnit();
+	},
+	gotUnit: function(unit){
+		this.formData.unit = unit;
+
 		$('#quiz').slideUp(500);
 		$("#render-output").slideDown(2000);
-		formRenderer.renderForm(formData);
+		formRenderer.renderForm(this.formData);
 	}
 
 }
